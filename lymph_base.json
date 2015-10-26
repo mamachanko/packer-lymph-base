@@ -2,7 +2,7 @@
   "variables": {
     "atlas_username": "mamachanko",
     "atlas_buildname": "lymph-base",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "ssh_port": "22",
@@ -30,6 +30,7 @@
     {
       "type": "ansible-local",
       "playbook_file": "ansible/main.yml",
+      "playbook_dir": "ansible/",
       "role_paths": [
         "{{pwd}}/roles/geerlingguy.packer-debian",
         "{{pwd}}/roles/geerlingguy.nfs",
@@ -39,6 +40,11 @@
         "{{pwd}}/roles/geerlingguy.nginx",
         "{{pwd}}/roles/ANXS.postgresql"
       ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/cleanup.sh"
     }
   ],
   "builders": [
